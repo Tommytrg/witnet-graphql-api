@@ -1,0 +1,19 @@
+{
+  "name": "witnet-graphql-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tomás Ruiz <tomastrg22@gmail.com> (https://github.com/tommytrg)",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "axios": "^0.19.2",
+    "graphql": "^15.0.0",
+    "rpc-websockets": "^5.1.1",
+    "ws": "^7.2.3"
+  }
+}
