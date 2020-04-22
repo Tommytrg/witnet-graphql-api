@@ -50,43 +50,52 @@ class NodeApi {
       })
     })
   }
-
+/// Get the list of all the known block hashes.
   getBlockchain() {
     return this.callApiMethod('getBlockChain')
   }
-
+  // broadcast a transaction, block or error to the node like any other from the network
   inventory () { }
 
+  // Get block by hash
   getBlock () { }
 
+  // get transaction by hash
   getTransaction() { }
 
+  // getNode status
   status() { }
 
+  // get data request report
   dataRequestReport() { }
 
+  // get balance of the node
   getBalance () { }
 
+  // Get Reputation of one pkh
   getReputation () { }
 
+/// Get all reputation from all identities
   getReputationAll () { }
-
+// get peers
   peers () { }
-
+ // get known peers
   knownPeers () { }
-
+/// Build data request transaction
   sendRequest () { }
-
+/// Build value transfer transaction
   sendValue () { }
-
+/// Get public key
   getPublicKey () { }
-
+/// Get public key hash
   getPkh() { }
-
+  // sign data
   sign() { }
 
+  // create vrf
   createVRF() { }
 
+  // Export private key associated with the node identity
   masterKeyExport() { }
 }
 
@@ -94,3 +103,18 @@ class NodeApi {
 const a = new NodeApi()
 
 a.getBlockchain().then(x => console.log(x))
+
+
+// The GraphQL schema
+const typeDefs = gql`
+  type Query {
+    walletInfos: [WalletInfo],
+    wallet(password: String, id: String): Wallet
+    node: Node
+  }
+
+
+  type InventoryItem {
+
+  }
+`;
