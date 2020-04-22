@@ -39,7 +39,7 @@ class NodeApi {
     this.client.connect({ port, host })
   }
 
-  callApiMethod (methodName, params = []){
+  callApiMethod(methodName, params = []) {
     console.log('x')
     this.client.write(`{"jsonrpc":"2.0","id":"1","method":"${methodName}","params":[${params}]}\n`);
 
@@ -50,15 +50,16 @@ class NodeApi {
       })
     })
   }
-/// Get the list of all the known block hashes.
+
+  // Get the list of all the known block hashes.
   getBlockchain() {
     return this.callApiMethod('getBlockChain')
   }
   // broadcast a transaction, block or error to the node like any other from the network
-  inventory () { }
+  inventory() { }
 
   // Get block by hash
-  getBlock () { }
+  getBlock() { }
 
   // get transaction by hash
   getTransaction() { }
@@ -70,25 +71,32 @@ class NodeApi {
   dataRequestReport() { }
 
   // get balance of the node
-  getBalance () { }
+  getBalance() { }
 
   // Get Reputation of one pkh
-  getReputation () { }
+  getReputation() { }
 
-/// Get all reputation from all identities
-  getReputationAll () { }
-// get peers
-  peers () { }
- // get known peers
-  knownPeers () { }
-/// Build data request transaction
-  sendRequest () { }
-/// Build value transfer transaction
-  sendValue () { }
-/// Get public key
-  getPublicKey () { }
-/// Get public key hash
+  // Get all reputation from all identities
+  getReputationAll() { }
+
+  // get peers
+  peers() { }
+
+  // get known peers
+  knownPeers() { }
+
+  // Build data request transaction
+  sendRequest() { }
+
+  // Build value transfer transaction
+  sendValue() { }
+
+  // Get public key
+  getPublicKey() { }
+
+  // Get public key hash
   getPkh() { }
+
   // sign data
   sign() { }
 
