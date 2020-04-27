@@ -1,5 +1,6 @@
 const { ApolloServer, gql, UserInputError } = require('apollo-server');
 const WalletApi = require('./witnetWallet')
+const NodeApi = require('./witnetNodeClient')
 
 // The GraphQL schema
 const typeDefs = gql`
@@ -10,7 +11,7 @@ const typeDefs = gql`
   }
 
   type Node {
-    blockchain: String
+    blockchain: [BlockchainInfo]
     balance: String
     block: String
     pkh: String
@@ -46,6 +47,11 @@ const typeDefs = gql`
     path: String
     pkh: String
   }
+
+  type BlockchainInfo {
+    epoch: String,
+    blockHash: String,
+  }
 `;
 
 // A map of functions which return data for the schema.
@@ -69,6 +75,17 @@ const resolvers = {
         walletId,
         sessionId: unlockWalletRequest.session_id,
       }
+    },
+    node: async (_parent, args, { dataSources }) => {
+      return {}
+    },
+  },
+  Node: {
+    blockchain: async(_parent, _args, { dataSources }) => {
+      // TODO: handle arguments
+      const args = {}
+      const getBlockchainRequest = await dataSources.nodeApi.getBlockchain(args)
+      return getBlockchainRequest.map(block => ({epoch: block[0], blockHash: block[1]}))
     },
   },
   Wallet: {
@@ -96,11 +113,14 @@ const resolvers = {
 };
 
 const walletApi = new WalletApi()
+const nodeApi = new NodeApi()
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-    walletApi: walletApi
+    walletApi,
+    nodeApi,
   }),
   tracing: true,
 });
