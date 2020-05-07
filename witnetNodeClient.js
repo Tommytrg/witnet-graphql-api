@@ -11,10 +11,11 @@ module.exports = class NodeApi {
   }
 
   callApiMethod(methodName, params = []) {
-    this.client.write(`{"jsonrpc":"2.0","id":"1","method":"${methodName}","params":[${params}]}\n`);
+    this.client.write(`{"jsonrpc":"2.0","id":"1","method":"${methodName}","params":[${JSON.stringify(params)}]}\n`);
 
     return new Promise((resolve, reject) => {
       this.client.on('data', (chunk) => {
+        console.log('----', chunk.toString())
         resolve(JSON.parse(chunk.toString()).result)
       })
     })
@@ -42,11 +43,13 @@ module.exports = class NodeApi {
   dataRequestReport() { }
 
   // get balance of the node
-  getBalance() { }
+  getBalance({ pkh }) {
+    return this.callApiMethod('getBalance', pkh)
+  }
 
   // Get Reputation of one pkh
-  getReputation({ pkh }) {
-    return this.callApiMethod('getReputation')
+  getReputation(params) {
+    return this.callApiMethod('getReputation', params)
   }
 
   // Get all reputation from all identities
@@ -76,7 +79,9 @@ module.exports = class NodeApi {
   }
 
   // Get public key hash
-  getPkh() { }
+  getPkh() {
+    return this.callApiMethod('getPkh')
+  }
 
   // sign data
   sign() { }

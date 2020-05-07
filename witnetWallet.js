@@ -22,8 +22,16 @@ module.exports = class WalletApi {
     return this._callApiMethod('create_data_request')(params)
   }
 
+  async updateWallet (params) {
+    return this._callApiMethod('update_wallet')(params)
+  }
+
   async createMnemonics(params) {
     return this._callApiMethod('create_mnemonics')(params)
+  }
+
+  async validateMnemonics(params) {
+    return this._callApiMethod('validate_mnemonics')(params)
   }
 
   async createWallet(params) {
