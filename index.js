@@ -99,9 +99,10 @@ const resolvers = {
     },
     balance: async(_parent, _args, { dataSources }) => {
       const getPkhRequest = await dataSources.nodeApi.getPkh()
-      const getBalanceRequest = await dataSources.nodeApi.getBalance({ pkh: getPkhRequest })
-
-      return getBalanceRequest
+      console.log()
+      const getBalanceRequest = await dataSources.nodeApi.getBalance({ pkh: JSON.parse(getPkhRequest).result })
+      console.log('---', JSON.parse(getBalanceRequest))
+      return JSON.parse(getBalanceRequest).result
 
     },
     blockchain: async(_parent, _args, { dataSources }) => {

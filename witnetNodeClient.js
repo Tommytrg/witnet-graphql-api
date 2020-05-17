@@ -10,21 +10,25 @@ module.exports = class NodeApi {
     this.client.connect({ port, host })
   }
 
-  callApiMethod(methodName, params = []) {
-    this.client.write(`{"jsonrpc":"2.0","id":"1","method":"${methodName}","params":[${JSON.stringify(params)}]}\n`);
-
+  callApiMethod(methodName, params) {
+    this.client.write(`{"jsonrpc":"2.0","id":"1","method":"${methodName}","params": ${params ? JSON.stringify(params) : JSON.stringify({})}}\n`);
     return new Promise((resolve, reject) => {
+      let content = ''
       this.client.on('data', (chunk) => {
-        console.log('----', chunk.toString())
-        resolve(JSON.parse(chunk.toString()).result)
+        content += chunk.toString()
+        if (chunk.toString().includes('\n')) {
+          return resolve(content)
+        }
       })
+    }).then(response => {
+      return JSON.parse(response).result
     })
   }
 
   // Get the list of all the known block hashes.
   // params: { epoch: number, limit: number}
   getBlockchain(params) {
-    return this.callApiMethod('getBlockChain',params)
+    return this.callApiMethod('getBlockChain', params)
   }
 
   // broadcast a transaction, block or error to the node like any other from the network
@@ -44,7 +48,7 @@ module.exports = class NodeApi {
 
   // get balance of the node
   getBalance({ pkh }) {
-    return this.callApiMethod('getBalance', pkh)
+    return this.callApiMethod('getBalance', { pkh })
   }
 
   // Get Reputation of one pkh
