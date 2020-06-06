@@ -11,7 +11,7 @@
   "author": "Tomás Ruiz <tomastrg22@gmail.com> (https://github.com/tommytrg)",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.12.0",
+    "apollo-server": "^2.14.2",
     "axios": "^0.19.2",
     "graphql": "^15.0.0",
     "rpc-websockets": "^5.1.1",
