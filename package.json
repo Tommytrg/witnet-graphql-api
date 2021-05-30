@@ -15,7 +15,7 @@
     "axios": "^0.19.2",
     "graphql": "^15.0.0",
     "rpc-websockets": "^5.1.1",
-    "ws": "^7.2.3"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "ava": "latest",
